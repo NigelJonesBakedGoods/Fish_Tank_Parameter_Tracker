@@ -25,6 +25,8 @@ int foodTime = time24H;
 int waterChangeTime = time168H;
 
 
+class Timer
+
 void setup() {
   pinMode(cycleButton, INPUT_PULLUP);
   pinMode(resetButton,  INPUT_PULLUP);
@@ -35,9 +37,18 @@ void setup() {
 }
 
 void loop() {
-  if (digitalRead(resetButton) == HIGH){
+  if(digitalRead(cycleButton) == HIGH){
     menuCycle = (menuCycle + 1) % 5;
+    while(digitalRead(cycleButton) == HIGH){}
   }
+
+//the cycle manager is reaaaaaalllly shit, i cant figure out arrays with text which is what a would like but oh well
+  if(menuCycle == 0){
+    displayFoodTime()
+  }elif(menuCycle == 1){
+    displayWaterChangeTime()
+  }
+
   foodTime = time24H;
   if (waterChangeTime == 0){
     waterChangeTime = time168H;
@@ -49,10 +60,12 @@ void loop() {
 
 }
 
+
 void changeFoodTime(int(time)){
 
 }
 
+//for the displays i want to create a class so i can just call foodtime.timer() to pull values. figure it out, or dont i mean we can just fuck around a little lol
 void displayFoodTime(int(time)){
 
 }
