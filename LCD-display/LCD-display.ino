@@ -23,9 +23,9 @@ const int time24H = 86400000;
 const int time168H = 604800000;
 int foodTime = time24H;
 int waterChangeTime = time168H;
+bool foodIsReady = false; 
+bool waterChangeIsReady = false;
 
-
-class Timer
 
 void setup() {
   pinMode(cycleButton, INPUT_PULLUP);
@@ -37,40 +37,44 @@ void setup() {
 }
 
 void loop() {
-  if(digitalRead(cycleButton) == HIGH){
-    menuCycle = (menuCycle + 1) % 5;
-    while(digitalRead(cycleButton) == HIGH){}
+  while(foodIsReady == false && waterChangeIsReady == false){  
+
+    if(digitalRead(cycleButton) == HIGH){
+      menuCycle = (menuCycle + 1) % 5;
+      while(digitalRead(cycleButton) == HIGH){}
+    }
+
+  //the cycle manager is reaaaaaalllly shit, i cant figure out arrays with text which is what a would like but oh well
+    if(menuCycle == 0){
+      displayFoodTime(foodTime);
+    }else if(menuCycle == 1){
+      displayWaterChangeTime(waterChangeTime);
+    }
+
+    //Timer Manager
+    foodTime -= 10;
+    waterChangeTime -= 10;
+
+    if (foodTime == 0 || waterChangeTime == 0){
+
+    }
+    delay(10);
   }
 
-//the cycle manager is reaaaaaalllly shit, i cant figure out arrays with text which is what a would like but oh well
-  if(menuCycle == 0){
-    displayFoodTime()
-  }elif(menuCycle == 1){
-    displayWaterChangeTime()
+  if(foodIsReady == true){
+    //print lcd Please Feed Fish and Spam the fuck out of the alarm
+    if 
+  }else if (waterChangeIsReady){
+    //print lcd Please change fish tank water and spam the fuck out of the alarm
+
   }
 
-  foodTime = time24H;
-  if (waterChangeTime == 0){
-    waterChangeTime = time168H;
-  }
-  foodTime -= 10;
-  waterChangeTime -= (waterChangeTime - 10);
-  changeFoodTime(foodTime);
-  changeWaterChangeTime(waterChangeTime);
 
 }
 
-
-void changeFoodTime(int(time)){
-
-}
 
 //for the displays i want to create a class so i can just call foodtime.timer() to pull values. figure it out, or dont i mean we can just fuck around a little lol
 void displayFoodTime(int(time)){
-
-}
-
-void changeWaterChangeTime(int(time)){
 
 }
 
